@@ -1,6 +1,14 @@
 version: '3'
 
 services:
+  backend:
+    image: backend
+    ports:
+      - 3000:3000
+    links:
+      - mongo
+    networks:
+      - mongo-compose-network
   mongo-express:
     image: mongo-express
     ports:

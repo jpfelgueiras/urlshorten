@@ -1,0 +1,4 @@
+cd backend
+docker build -t backend .
+cd ..
+docker-compose up

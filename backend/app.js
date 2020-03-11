@@ -17,19 +17,29 @@ const app = express();
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1', router);
-
-
-mongoose.connect('mongodb://localhost:27017/urlshorten',{
+var mongoUrl ='mongodb://mongo:27017/urlshorten'
+var mongoData = {
   "auth": {
     "authSource": "admin"
   },
   "user": "root",
   "pass": "MongoDB2019!"
-});
+};
+
+var connectWithRetry = function() {
+  return mongoose.connect(mongoUrl,mongoData, function(err) {
+    if (err) {
+      console.error('Failed to connect to mongo on startup - retrying in 5 milliseconds', err);
+      setTimeout(connectWithRetry, 500);
+    }
+  });
+};
+connectWithRetry();
 
 mongoose.connection.on('open', () => {
   console.log(`MongoDB connected: ${mongoose.connection.db.databaseName}`);
 });
+
 
 mongoose.connection.on('error', (err) => {
   console.error(`MongoDB error: ${err}`);
