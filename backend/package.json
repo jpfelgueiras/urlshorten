@@ -12,7 +12,7 @@
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "express-useragent": "^1.0.7",
-    "mongoose": "^4.11.1",
+    "mongoose": "^5.9.4",
     "morgan": "~1.8.1",
     "node-where": "^1.1.0",
     "swagger-ui-express": "^4.1.3",
