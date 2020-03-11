@@ -1,0 +1,287 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Url Shorten"
+  },
+  "host": "localhost:3000",
+  "basePath": "",
+  "tags": [
+    {
+      "name": "info",
+      "description": ""
+    },
+    {
+      "name": "url",
+      "description": ""
+    },
+    {
+      "name": "analytics",
+      "description": ""
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/info": {
+      "get": {
+        "tags": [
+          "info"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "inf",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the info of the application",
+            "type":"object",
+            "schema": {
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/Info"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "url"
+        ],
+        "summary": "Get all urls",
+        "operationId": "get all url",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful creation",
+            "type": "array",
+            "schema": {
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/Link"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "url"
+        ],
+        "parameters": [{
+          "in": "body",
+          "name": "user",
+          "description": "The user to create.",
+          "schema": {
+            "$ref": "#/definitions/LinkNew"
+          }
+        }],
+        "summary": "Create url sorten",
+        "operationId": "post url",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "successful creation",
+            "schema": {
+
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/LinkNew"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "400": {
+            "description": "Bad request: url is undefined or not formatted properly"
+          }
+        }
+      }
+    },
+    "/{urlId}": {
+      "get": {
+        "tags": [
+          "url"
+        ],
+        "summary": "Redirect to extended url",
+        "operationId": "get url",
+        "parameters": [{
+          "in": "path",
+          "name": "urlId",
+          "schema": {
+            "type": "string"
+          },
+          "required": true,
+          "description": "Numeric ID of the user to get"
+        }],
+        "responses": {
+          "404": {
+            "description": "Resource Not Found"
+          }
+        }
+      }
+    },
+    "/analytics": {
+      "get": {
+        "tags": [
+          "analytics"
+        ],
+        "summary": "Get all urls",
+        "operationId": "get all url",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful creation",
+            "type": "array",
+            "schema": {
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/Analytics"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analytics/{urlId}": {
+      "get": {
+        "tags": [
+          "analytics"
+        ],
+        "parameters": [{
+          "in": "path",
+          "name": "urlId",
+          "schema": {
+            "type": "string"
+          },
+          "required": true,
+          "description": "ID of the url to get"
+        }],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful creation",
+            "type": "array",
+            "schema": {
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/Analytics"
+              }
+            }
+          }
+        }
+      }
+
+    }
+  },
+  "definitions": {
+    "Info":{
+      "type":"object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Info"
+      }
+    },
+    "Analytics": {
+      "type": "object",
+      "properties": {
+
+        "_id": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "urlId": {
+          "type": "string"
+        },
+        "browser": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "integer",
+          "format": "int64"
+        }
+
+      },
+      "xml": {
+        "name": "Analytics"
+      }
+    },
+    "Link": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "url": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hits": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "xml": {
+        "name": "Link"
+      }
+    },
+    "LinkNew": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Link"
+      }
+    }
+  }
+}

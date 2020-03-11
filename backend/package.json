@@ -1,0 +1,24 @@
+{
+  "name": "urlshorten",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon --inspect ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "express-useragent": "^1.0.7",
+    "mongoose": "^4.11.1",
+    "morgan": "~1.8.1",
+    "node-where": "^1.1.0",
+    "swagger-ui-express": "^4.1.3",
+    "validator": "^8.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
